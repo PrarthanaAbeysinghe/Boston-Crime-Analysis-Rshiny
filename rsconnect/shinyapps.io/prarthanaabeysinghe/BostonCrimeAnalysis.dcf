@@ -1,0 +1,12 @@
+name: BostonCrimeAnalysis
+title: BostonCrimeAnalysis
+username:
+account: prarthanaabeysinghe
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 1322541
+bundleId: 2495949
+url: https://prarthanaabeysinghe.shinyapps.io/BostonCrimeAnalysis/
+when: 1570955655.72605
+asMultiple: FALSE
+asStatic: FALSE
