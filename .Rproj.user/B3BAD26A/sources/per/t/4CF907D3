@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1570944766086.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2006443013",
+    "id" : "4CF907D3",
+    "lastKnownWriteTime" : 1571637760,
+    "last_content_update" : 1571637760,
+    "path" : "~/CrimeAnalysisDashBoard/prepare_data.R",
+    "project_path" : "prepare_data.R",
+    "properties" : {
+        "cursorPosition" : "38,0",
+        "scrollLine" : "39",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

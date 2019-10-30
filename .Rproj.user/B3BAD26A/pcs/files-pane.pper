@@ -1,0 +1,9 @@
+{
+    "path" : "~/CrimeAnalysisDashBoard",
+    "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        }
+    ]
+}

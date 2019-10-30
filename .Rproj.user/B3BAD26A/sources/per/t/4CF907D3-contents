@@ -1,0 +1,38 @@
+library(dplyr)
+
+crime <- read.csv("D:\\python\\crime\\crimes-in-boston\\crime.csv")
+View(crime)
+grouped_data <- aggregate(list(COUNT=crime$INCIDENT_NUMBER), by=list(DISTRICT=crime$DISTRICT, YEAR=crime$YEAR), FUN=length);
+library(tidyr)
+final <- spread(grouped_data, DISTRICT, COUNT)
+
+finaldf <- final[-1]
+row.names(finaldf) <- final$YEAR
+View(finaldf)
+
+barplot(table(crime$YEAR))
+
+library(ggplot2)
+library("RColorBrewer")#colour
+
+
+
+
+
+
+
+length(unique(crime$OFFENSE_CODE_GROUP))
+
+
+# Plot the graph 
+ggplot(crime, aes(x=HOUR))+geom_bar(stat="Count", width=0.8, fill = "steelblue")+ theme(axis.text.x = element_text(angle = 0, hjust = 1)) + labs(x = "Hour", y = "Number of crimes") + theme_minimal()+ theme(axis.title.x=element_blank()) + theme(axis.title.y=element_blank())
+
+ dd_aggr4 <- aggregate(Count ~ MONTH, data = crime, FUN = sum)
+          # Plot the graph 
+          ggplot(dd_aggr4)+geom_bar( width=0.8, fill="steelblue")+ theme(axis.text.x = element_text(angle = 0, hjust = 1)) +  labs(x = "Month", y = "Number of crimes") + theme_minimal()+ theme(axis.title.x=element_blank()) + theme(axis.title.y=element_blank())
+          ggplot(dd_aggr4, aes(x=MONTH, y= Count),names.arg = c( 1:12)) + geom_line(colour = "steelblue") + geom_point(colour = "steelblue")
+typeof(crime$HOUR)
+
+crime$StrHOURS=toString(crime$HOUR)
+ggplot(crime, aes(x=HOUR))+geom_bar(stat="Count", width=0.8, fill="steelblue")+ theme(axis.text.x = element_text(angle = 0, hjust = 1)) +  labs(x = "Hours", y = "Number of crimes")
+                                           
