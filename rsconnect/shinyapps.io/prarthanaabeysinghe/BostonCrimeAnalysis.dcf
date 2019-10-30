@@ -5,9 +5,9 @@ account: prarthanaabeysinghe
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 1322541
-bundleId: 2544202
+bundleId: 2551989
 url: https://prarthanaabeysinghe.shinyapps.io/BostonCrimeAnalysis/
-when: 1572275033.51423
+when: 1572457394.77828
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: .RData|prepare_data.R|Rplot.png|Rplot01.png|Rplot02.pdf|Rplot03.pdf|Rplot04.pdf|Rplot05.pdf|Rplot06.pdf|Rplot07.pdf|Rplot08.pdf
+ignoredFiles: .RData|readme.md

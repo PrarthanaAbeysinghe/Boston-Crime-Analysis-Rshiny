@@ -5,21 +5,23 @@ library(ggvis)
 library("RColorBrewer")#colour
 library(DT)#data table
 library(ggmap)# to create map
-#library(semantic.dashboard)
-
-# Creating the dataframe
-library(dplyr)
+library(dplyr)# Creating the dataframe and drop column
+library(tidyr)# to spread data
+library(reshape2)#to melt data
 
 # read data set
-crime <- read.csv("crime.csv")
+crimedf <- read.csv("crime.csv")
+#drop unwanted column
+crimedf1 = select(crimedf,-c(SHOOTING))
+#remove NA and NAN values
+crime = na.omit(crimedf1)
+
 grouped_data <- aggregate(list(COUNT=crime$INCIDENT_NUMBER), by=list(DISTRICT=crime$DISTRICT, YEAR=crime$YEAR), FUN=length);
-library(tidyr)
 final <- spread(grouped_data, DISTRICT, COUNT)
 
 finaldf <- final[-1]
 row.names(finaldf) <- final$YEAR
 
-library(reshape2)
 group_by_year <- spread(grouped_data, YEAR, COUNT)
 melt_group_by_year <- melt(group_by_year, id.vars="DISTRICT")
 
@@ -102,14 +104,10 @@ ui= dashboardPage (
           box(width = 15,
                       title = "Type of Crime vs Hours",
                       color = "green", ribbon = TRUE, title_side = "top right",
-                      
-                      #column(width = 12, height="auto",
                       height = "1000",
-                             plotOutput("plot1")
-                      #)
-                  ),
-          
-        ),
+                      plotOutput("plot1")
+                ),
+           ),
       ),
 
       tabItem(
@@ -118,11 +116,8 @@ ui= dashboardPage (
           box(width = 15,
                       title = "Crime vs Type of Crime over the Years",
                       color = "green", ribbon = TRUE, title_side = "top right",
-                      
-                      #column(width = 12, height="auto",
-                      
-                             plotOutput("plot2")
-                      #)
+                      plotOutput("plot2")
+  
                   ),
           
         ),
@@ -174,7 +169,7 @@ ui= dashboardPage (
       tabItem(
         tabName = "extra4",
         fluidRow(
-          box(width = 15,title = "Number of Crime Above 250",
+          box(width = 15,title = "The Crime Incident Locations Where the Number of Crime Above 500",
                      
                       plotOutput("map")
           ),
@@ -202,7 +197,7 @@ server=shinyServer(function(input, output, session ) {
   
   # Fill in the spot we created for a plot
   output$crimeIncidentsPlot <- renderPlot({
-    
+
     # Render a barplot
     barplot(finaldf[,input$DISTRICT],
             main=paste("District:", input$DISTRICT),
@@ -246,9 +241,9 @@ output$plot2<- renderPlot({
 })
 output$plot3<- renderPlot({
 # Create aggregated object
-        dd_aggr <- aggregate(Count ~ YEAR, data = crime, FUN = sum)
+        dd_aggr3 <- aggregate(Count ~ YEAR, data = crime, FUN = sum)
         # Plot the graph 
-        ggplot(dd_aggr, aes(x=YEAR, y= Count)) + geom_line(colour = "steelblue") + geom_point(colour = "steelblue") + theme_minimal() + theme(axis.title.x=element_blank()) + theme(axis.title.y=element_blank())  +  labs(x = "Year", y = "Number of crimes")
+        ggplot(dd_aggr3, aes(x=YEAR, y= Count)) + geom_line(colour = "steelblue") + geom_point(colour = "steelblue") + theme_minimal() + theme(axis.title.x=element_blank()) + theme(axis.title.y=element_blank())  +  labs(x = "Year", y = "Number of crimes")
 })
 output$plot4<- renderPlot({
               # Plot the graph 
@@ -270,7 +265,7 @@ output$map<- renderPlot({
         crime1 = crime[!crime$Lat == 	-1.00000, ]
         # Create aggregated object
         agg <- aggregate(Count~ Lat + Long, data = crime1, FUN = sum)
-        agg_count <- subset(agg,Count=250,)
+        agg_count <- subset(agg,Count=500,)
         qmplot(Long, Lat, data = agg_count, colour = I('red'), size = I(0.5), darken = .3)
 })
 # create data table
